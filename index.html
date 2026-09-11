@@ -3,24 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Display Signage Masjid Online 2.0</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+<title>Display Signage Masjid Online 2.0 - Elegan Keemasan</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
-    --bg-dark: #0a111e;
-    --card-bg: rgba(15, 23, 42, 0.85);
-    --primary: #0d9488;
-    --accent: #f59e0b;
-    --accent-light: #fbbf24;
+    --bg-dark: #070a0f;
+    --card-bg: rgba(15, 20, 30, 0.75);
+    --gold-primary: #d4af37;
+    --gold-light: #f3e5ab;
+    --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+    --gold-glow: rgba(212, 175, 55, 0.3);
+    --teal-accent: #0f766e;
     --text-main: #f8fafc;
-    --border: rgba(245, 158, 11, 0.25);
+    --text-muted: #94a3b8;
+    --border-gold: rgba(212, 175, 55, 0.4);
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 60%, #070a12 100%);
+    background: radial-gradient(circle at 50% 30%, #151d2a 0%, #080d16 60%, #030508 100%);
     color: var(--text-main);
     height: 100vh;
     overflow: hidden;
@@ -30,62 +38,379 @@
 
   /* Header */
   .header {
-    height: 75px; padding: 15px 40px; background: rgba(10, 17, 30, 0.95);
-    border-bottom: 2px solid var(--border); display: flex; justify-content: space-between; align-items: center;
+    height: 80px;
+    padding: 15px 40px;
+    background: rgba(8, 12, 20, 0.92);
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, transparent, var(--gold-primary), transparent) 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   }
-  .brand { display: flex; align-items: center; gap: 15px; }
-  .brand-logo-img { height: 48px; width: auto; object-fit: contain; }
-  .brand-logo-icon { font-size: 32px; color: var(--accent); }
-  .brand-title { font-size: 24px; font-weight: 800; color: var(--accent); }
-  .brand-subtitle { font-size: 12px; color: #94a3b8; }
-  .clock { font-size: 26px; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
-  .date-masehi { font-size: 12px; color: #94a3b8; font-weight: 600; }
-  .date-hijri { font-family: 'Amiri', serif; font-size: 16px; color: var(--accent-light); }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .brand-logo-img {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px var(--gold-glow));
+  }
+
+  .brand-logo-icon {
+    font-size: 36px;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  }
+
+  .brand-title {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .brand-subtitle {
+    font-size: 12px;
+    color: var(--gold-light);
+    opacity: 0.8;
+    letter-spacing: 0.5px;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .clock {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold-light);
+    text-shadow: 0 0 12px var(--gold-glow);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .date-masehi {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .date-hijri {
+    font-family: 'Amiri', serif;
+    font-size: 18px;
+    color: var(--gold-primary);
+  }
 
   /* Live Quran Banner */
   .quran-banner {
-    background: linear-gradient(90deg, rgba(13, 148, 136, 0.25) 0%, rgba(245, 158, 11, 0.25) 50%, rgba(13, 148, 136, 0.25) 100%);
-    border-bottom: 1px solid var(--border); padding: 12px 40px; text-align: center; min-height: 100px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.12) 0%, rgba(15, 20, 30, 0.6) 80%);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 14px 50px;
+    text-align: center;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
   }
-  .quran-arabic { font-family: 'Amiri', serif; font-size: 22px; color: var(--accent-light); direction: rtl; line-height: 1.6; }
-  .quran-translation { font-size: 13px; font-style: italic; margin-top: 4px; color: #e2e8f0; }
 
-  /* Main 3 Column Grid */
+  .quran-container {
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out;
+  }
+
+  .quran-container.fade-out {
+    opacity: 0;
+  }
+
+  .quran-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 24px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    direction: rtl;
+    line-height: 1.6;
+  }
+
+  .quran-translation {
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 6px;
+    color: var(--gold-light);
+    letter-spacing: 0.2px;
+  }
+
+  /* Main Grid */
   .main-content {
-    flex: 1; display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 20px;
-    padding: 20px 40px 10px 40px; overflow: hidden;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 24px;
+    padding: 24px 40px 12px 40px;
+    overflow: hidden;
   }
+
   .card {
-    background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
-    padding: 20px; backdrop-filter: blur(10px); display: flex; flex-direction: column;
+    background: var(--card-bg);
+    border: 1px solid var(--border-gold);
+    border-radius: 18px;
+    padding: 22px;
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.05);
   }
-  .card-title { font-size: 16px; font-weight: 700; color: var(--accent); border-bottom: 1px dashed var(--border); padding-bottom: 10px; margin-bottom: 15px; }
+
+  .card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 1px solid var(--border-gold);
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title i {
+    color: var(--gold-primary);
+    -webkit-text-fill-color: initial;
+  }
 
   /* Prayer Times */
-  .prayer-list { display: flex; flex-direction: column; gap: 8px; height: 100%; justify-content: space-around; }
-  .prayer-item { display: flex; justify-content: space-between; padding: 10px 16px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; }
-  .prayer-item.active { background: rgba(245, 158, 11, 0.15); border-left: 4px solid var(--accent); }
-  .prayer-time { font-size: 18px; font-weight: 800; color: var(--accent-light); }
+  .prayer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    justify-content: space-around;
+  }
+
+  .prayer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .prayer-item.active {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.25) 0%, rgba(15, 20, 30, 0.2) 100%);
+    border-left: 4px solid var(--gold-primary);
+    border-color: var(--border-gold);
+    box-shadow: 0 0 15px var(--gold-glow);
+  }
+
+  .prayer-name {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .prayer-time {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
 
   /* Centerpiece Countdown */
-  .centerpiece { text-align: center; justify-content: center; align-items: center; background: radial-gradient(circle, rgba(13, 148, 136, 0.25) 0%, rgba(15, 23, 42, 0.85) 100%); border: 2px solid var(--accent); }
-  .countdown-display { font-size: 50px; font-weight: 800; color: #fff; text-shadow: 0 0 20px rgba(245, 158, 11, 0.6); margin: 10px 0; font-variant-numeric: tabular-nums; }
+  .centerpiece {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, rgba(15, 20, 30, 0.9) 80%);
+    border: 2px solid var(--gold-primary);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.1);
+  }
 
-  /* Rotating Agenda Card */
-  .agenda-card-item { background: rgba(13, 148, 136, 0.15); border: 1px solid var(--primary); border-radius: 12px; padding: 20px; text-align: center; width: 100%; }
-  .agenda-badge { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
+  .centerpiece-subtitle {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .centerpiece-prayer-name {
+    font-family: 'Cinzel', serif;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 4px 0;
+  }
+
+  .countdown-display {
+    font-family: 'Cinzel', serif;
+    font-size: 54px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 0 25px var(--gold-glow);
+    margin: 12px 0;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+  }
+
+  .centerpiece-time-target {
+    font-size: 14px;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+  }
+
+  /* Agenda Card */
+  .agenda-wrapper {
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+
+  .agenda-card-item {
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--border-gold);
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+    width: 100%;
+    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05);
+  }
+
+  .agenda-badge {
+    background: var(--gold-gradient);
+    color: #000;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .agenda-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .agenda-speaker {
+    font-size: 14px;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+  }
+
+  .agenda-time {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
 
   /* Ramadhan Countdown Bar */
-  .ramadhan-container { padding: 0 40px; margin-bottom: 10px; display: flex; justify-content: center; }
-  .ramadhan-card { background: linear-gradient(90deg, rgba(245,158,11,0.15), rgba(13,148,136,0.25), rgba(245,158,11,0.15)); border: 1px solid var(--accent); border-radius: 30px; padding: 8px 30px; display: flex; gap: 15px; align-items: center; }
+  .ramadhan-container {
+    padding: 0 40px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .ramadhan-card {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.25) 50%, rgba(212, 175, 55, 0.1) 100%);
+    border: 1px solid var(--border-gold);
+    border-radius: 30px;
+    padding: 10px 36px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .ramadhan-label {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+  }
+
+  .ramadhan-value {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 0 10px var(--gold-glow);
+  }
 
   /* Footer Ticker */
-  .footer-ticker { height: 40px; background: rgba(10, 17, 30, 0.95); border-top: 1px solid var(--border); display: flex; align-items: center; padding: 0 20px; overflow: hidden; }
-  .ticker-badge { background: var(--accent); color: #000; font-weight: 800; padding: 3px 10px; border-radius: 4px; font-size: 11px; margin-right: 15px; white-space: nowrap; }
-  .ticker-text { white-space: nowrap; animation: marquee 25s linear infinite; font-size: 13px; }
+  .footer-ticker {
+    height: 44px;
+    background: rgba(5, 8, 14, 0.95);
+    border-top: 1px solid var(--border-gold);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    overflow: hidden;
+  }
 
-  @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+  .ticker-badge {
+    background: var(--gold-gradient);
+    color: #000;
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-right: 18px;
+    white-space: nowrap;
+    box-shadow: 0 0 10px var(--gold-glow);
+    z-index: 2; /* Memastikan badge selalu berada di lapisan atas */
+  }
+
+  /* Container khusus untuk membatasi pergerakan teks */
+  .ticker-content {
+    flex: 1;
+    overflow: hidden; /* Memotong teks agar tidak tembus melampaui badge */
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .ticker-text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%; /* Memastikan teks selalu mulai animasi tepat dari ujung kanan */
+    animation: marquee 25s linear infinite;
+    font-size: 14px;
+    color: var(--gold-light);
+    letter-spacing: 0.5px;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
 </style>
 </head>
 <body>
@@ -100,7 +425,7 @@
         <div class="brand-subtitle" id="disp-alamat-masjid">RW 013 Menteng Atas • Jakarta Selatan</div>
       </div>
     </div>
-    <div style="text-align: right;">
+    <div class="header-right">
       <div class="clock" id="clock">00.00.00 WIB</div>
       <div class="date-masehi" id="date-masehi">-- ------ ----</div>
       <div class="date-hijri" id="date-hijri">-- ------ ---- H</div>
@@ -108,37 +433,39 @@
   </header>
 
   <section class="quran-banner">
-    <div class="quran-arabic" id="quran-arabic">Memuat Ayat Al-Qur'an...</div>
-    <div class="quran-translation" id="quran-translation">Memuat Terjemahan...</div>
+    <div class="quran-container" id="quran-box">
+      <div class="quran-arabic" id="quran-arabic">Memuat Ayat Al-Qur'an...</div>
+      <div class="quran-translation" id="quran-translation">Memuat Terjemahan...</div>
+    </div>
   </section>
 
   <main class="main-content">
     <section class="card">
       <div class="card-title"><i class="fa-solid fa-clock"></i> JADWAL SHALAT (KEMENAG)</div>
       <div class="prayer-list">
-        <div class="prayer-item" id="p-subuh"><span>Subuh</span><span class="prayer-time" id="time-subuh">--:-- WIB</span></div>
-        <div class="prayer-item" id="p-dzuhur"><span>Dzuhur</span><span class="prayer-time" id="time-dzuhur">--:-- WIB</span></div>
-        <div class="prayer-item" id="p-ashar"><span>Ashar</span><span class="prayer-time" id="time-ashar">--:-- WIB</span></div>
-        <div class="prayer-item" id="p-maghrib"><span>Maghrib</span><span class="prayer-time" id="time-maghrib">--:-- WIB</span></div>
-        <div class="prayer-item" id="p-isya"><span>Isya</span><span class="prayer-time" id="time-isya">--:-- WIB</span></div>
+        <div class="prayer-item" id="p-subuh"><span class="prayer-name">Subuh</span><span class="prayer-time" id="time-subuh">--:-- WIB</span></div>
+        <div class="prayer-item" id="p-dzuhur"><span class="prayer-name">Dzuhur</span><span class="prayer-time" id="time-dzuhur">--:-- WIB</span></div>
+        <div class="prayer-item" id="p-ashar"><span class="prayer-name">Ashar</span><span class="prayer-time" id="time-ashar">--:-- WIB</span></div>
+        <div class="prayer-item" id="p-maghrib"><span class="prayer-name">Maghrib</span><span class="prayer-time" id="time-maghrib">--:-- WIB</span></div>
+        <div class="prayer-item" id="p-isya"><span class="prayer-name">Isya</span><span class="prayer-time" id="time-isya">--:-- WIB</span></div>
       </div>
     </section>
 
     <section class="card centerpiece">
-      <div style="font-size: 14px; color: #94a3b8; text-transform: uppercase;">Menuju Waktu Shalat</div>
-      <div style="font-size: 34px; font-weight: 800; color: var(--accent);" id="next-prayer-name">MEMUAT...</div>
+      <div class="centerpiece-subtitle">Menuju Waktu Shalat</div>
+      <div class="centerpiece-prayer-name" id="next-prayer-name">MEMUAT...</div>
       <div class="countdown-display" id="countdown">00 : 00 : 00</div>
-      <div style="font-size: 14px; color: #14b8a6;" id="next-prayer-time">Pukul --:-- WIB</div>
+      <div class="centerpiece-time-target" id="next-prayer-time">Pukul --:-- WIB</div>
     </section>
 
     <section class="card">
       <div class="card-title"><i class="fa-solid fa-calendar-star"></i> AGENDA UTAMA</div>
-      <div style="display: flex; flex: 1; align-items: center;" id="agenda-container">
+      <div class="agenda-wrapper" id="agenda-container">
         <div class="agenda-card-item">
           <span class="agenda-badge" id="agenda-badge">AGENDA</span>
-          <div style="font-size: 18px; font-weight: 800; color: var(--accent-light);" id="agenda-judul">Memuat Agenda...</div>
-          <div style="font-size: 14px; margin: 6px 0;" id="agenda-penceramah">-</div>
-          <div style="font-size: 12px; color: #94a3b8;" id="agenda-waktu">-</div>
+          <div class="agenda-title" id="agenda-judul">Memuat Agenda...</div>
+          <div class="agenda-speaker" id="agenda-penceramah">-</div>
+          <div class="agenda-time" id="agenda-waktu">-</div>
         </div>
       </div>
     </section>
@@ -146,32 +473,94 @@
 
   <div class="ramadhan-container">
     <div class="ramadhan-card">
-      <i class="fa-solid fa-moon" style="color: var(--accent);"></i>
-      <span style="font-size: 13px; font-weight: 700; color: var(--accent-light);">COUNTDOWN MENUJU RAMADHAN :</span>
-      <span style="font-size: 16px; font-weight: 800;" id="ramadhan-timer">-- Hari : -- Jam</span>
+      <i class="fa-solid fa-moon" style="color: var(--gold-primary);"></i>
+      <span class="ramadhan-label">COUNTDOWN MENUJU RAMADHAN :</span>
+      <span class="ramadhan-value" id="ramadhan-timer">-- Hari : -- Jam</span>
     </div>
   </div>
 
   <footer class="footer-ticker">
     <div class="ticker-badge">INFO MASJID</div>
-    <div class="ticker-text" id="disp-running-text">Selamat datang di Masjid. Mohon menonaktifkan nada dering HP selama ibadah.</div>
+    <div class="ticker-content">
+      <div class="ticker-text" id="disp-running-text">Selamat datang di Masjid. Mohon menonaktifkan nada dering HP selama ibadah.</div>
+    </div>
   </footer>
 
   <script type="module">
     import { db, ref, onValue } from './js/firebase-config.js';
 
     let prayerSchedule = {};
-    let cityId = '1301'; // Default Kota Jakarta Selatan (Kemenag)
+    let cityId = '1301';
 
-    // 1. Tanggal Masehi & Hijriyah Dynamic
+    // Backup ayat Al-Qur'an lokal jika API Publik timeout/error
+    const fallbackAyahs = [
+      {
+        ar: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا • إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+        tr: '"Maka sesungguhnya bersama kesulitan ada kemudahan, sesungguhnya bersama kesulitan ada kemudahan." — QS. Al-Insyirah: 5-6'
+      },
+      {
+        ar: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ",
+        tr: '"Dan laksanakanlah salat, tunaikanlah zakat, dan rukuklah beserta orang-orang yang rukuk." — QS. Al-Baqarah: 43'
+      },
+      {
+        ar: "يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ",
+        tr: '"Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan salat." — QS. Al-Baqarah: 153'
+      },
+      {
+        ar: "إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنْكَرِ",
+        tr: '"Sesungguhnya salat itu mencegah dari (perbuatan) keji dan mungkar." — QS. Al-Ankabut: 45'
+      }
+    ];
+
+    let fallbackIndex = 0;
+
+    // 1. Ayat Al-Qur'an Otomatis Berganti Tiap 15 Detik
+    async function fetchRandomQuranVerse() {
+      const quranBox = document.getElementById('quran-box');
+      quranBox.classList.add('fade-out');
+
+      setTimeout(async () => {
+        let isLoaded = false;
+        try {
+          const randomAyah = Math.floor(Math.random() * 6236) + 1;
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+          const res = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyah}/editions/quran-uthmani,id.indonesian`, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          
+          if (res.ok) {
+            const data = await res.json();
+            if (data.status === 'OK' && data.data) {
+              document.getElementById('quran-arabic').innerText = data.data[0].text;
+              document.getElementById('quran-translation').innerText = `"${data.data[1].text}" — QS. ${data.data[0].surah.englishName}: ${data.data[0].numberInSurah}`;
+              isLoaded = true;
+            }
+          }
+        } catch (e) {
+          isLoaded = false;
+        }
+
+        if (!isLoaded) {
+          const item = fallbackAyahs[fallbackIndex];
+          document.getElementById('quran-arabic').innerText = item.ar;
+          document.getElementById('quran-translation').innerText = item.tr;
+          fallbackIndex = (fallbackIndex + 1) % fallbackAyahs.length;
+        }
+
+        quranBox.classList.remove('fade-out');
+      }, 800);
+    }
+
+    fetchRandomQuranVerse();
+    setInterval(fetchRandomQuranVerse, 15000);
+
+    // 2. Tanggal Masehi & Hijriyah
     function updateDates() {
       const now = new Date();
-      
-      // Masehi
       const optionsMasehi = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
       document.getElementById('date-masehi').innerText = now.toLocaleDateString('id-ID', optionsMasehi);
 
-      // Hijriyah via API Aladhan
       const day = String(now.getDate()).padStart(2, '0');
       const month = String(now.getMonth() + 1).padStart(2, '0');
       const year = now.getFullYear();
@@ -189,7 +578,7 @@
     }
     updateDates();
 
-    // 2. Jadwal Shalat Kemenag RI (via MyQuran API)
+    // 3. Jadwal Shalat Kemenag RI
     async function fetchKemenagPrayerTimes() {
       const now = new Date();
       const y = now.getFullYear();
@@ -221,7 +610,7 @@
     }
     fetchKemenagPrayerTimes();
 
-    // 3. Clock & Hitung Mundur Shalat Dinamis
+    // 4. Jam & Countdown Dynamic
     function updateClockAndCountdown() {
       const now = new Date();
       const hours = String(now.getHours()).padStart(2, '0');
@@ -275,24 +664,6 @@
 
     setInterval(updateClockAndCountdown, 1000);
 
-    // 4. Quran API
-    async function fetchRandomQuranVerse() {
-      try {
-        const randomAyah = Math.floor(Math.random() * 6236) + 1;
-        const res = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyah}/editions/quran-uthmani,id.indonesian`);
-        const data = await res.json();
-        if (data.status === 'OK') {
-          document.getElementById('quran-arabic').innerText = data.data[0].text;
-          document.getElementById('quran-translation').innerText = `"${data.data[1].text}" — QS. ${data.data[0].surah.englishName}: ${data.data[0].numberInSurah}`;
-        }
-      } catch (e) {
-        document.getElementById('quran-arabic').innerText = "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا • إِنَّ مَعَ الْعُسْرِ يُسْرًا";
-        document.getElementById('quran-translation').innerText = '"Maka sesungguhnya bersama kesulitan ada kemudahan." — QS. Al-Insyirah: 5-6';
-      }
-    }
-    fetchRandomQuranVerse();
-    setInterval(fetchRandomQuranVerse, 3600000);
-
     // 5. Countdown Ramadhan
     function updateRamadhanCountdown() {
       const now = new Date();
@@ -308,7 +679,7 @@
     }
     updateRamadhanCountdown();
 
-    // 6. Realtime Listener Data Masjid, Custom Logo & Running Text
+    // 6. Realtime Config Firebase
     onValue(ref(db, 'config'), (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -325,7 +696,7 @@
       }
     });
 
-    // 7. Realtime Listener Agenda
+    // 7. Realtime Agenda Firebase
     onValue(ref(db, 'agendas'), (snapshot) => {
       const agendas = snapshot.val();
       if (agendas) {

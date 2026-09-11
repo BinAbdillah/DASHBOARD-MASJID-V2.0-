@@ -3,14 +3,23 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth
 import { getDatabase, ref, onValue, set, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "masjid-signage.firebaseapp.com",
-  databaseURL: "https://masjid-signage-default-rtdb.firebaseio.com",
-  projectId: "masjid-signage",
-  storageBucket: "masjid-signage.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456"
-};
+
+    apiKey: "AIzaSyCE4w2DsRH3jLmFUq8Mw1kT3cZtk9xivLQ",
+
+    authDomain: "dmov2-0.firebaseapp.com",
+
+    projectId: "dmov2-0",
+
+    storageBucket: "dmov2-0.firebasestorage.app",
+
+    messagingSenderId: "708837310672",
+
+    appId: "1:708837310672:web:350ead9eea21cdc9501ed5",
+
+    measurementId: "G-NJ01FQT255"
+
+  };
+
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
