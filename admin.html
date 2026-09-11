@@ -12,12 +12,22 @@
   .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
   .tab-btn { background: #1e293b; color: #94a3b8; border: 1px solid rgba(255,255,255,0.1); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; }
   .tab-btn.active { background: #0d9488; color: #fff; }
-  .panel-card { background: #1e293b; border-radius: 12px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+  .panel-card { background: #1e293b; border-radius: 12px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
   .form-group { margin-bottom: 15px; }
   .form-group label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px; }
   .form-control { width: 100%; padding: 12px; background: #0f172a; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; box-sizing: border-box; }
   .btn-save { background: #f59e0b; color: #000; border: none; padding: 12px 20px; font-weight: 800; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; }
   .preview-logo { height: 60px; margin-top: 10px; display: none; border-radius: 6px; }
+  
+  /* Style List Agenda */
+  .agenda-list-container { margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+  .agenda-item { background: #0f172a; border: 1px solid rgba(255,255,255,0.08); padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .agenda-info { display: flex; flex-direction: column; gap: 4px; }
+  .agenda-badge { background: rgba(13, 148, 136, 0.2); color: #2dd4bf; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; width: fit-content; }
+  .agenda-title { font-size: 15px; font-weight: 700; color: #fff; margin: 2px 0; }
+  .agenda-sub { font-size: 13px; color: #94a3b8; }
+  .btn-delete { background: #ef4444; color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px; }
+  .btn-delete:hover { background: #dc2626; }
 </style>
 </head>
 <body>
@@ -49,7 +59,7 @@
       <input type="text" id="inp-city-id" class="form-control" placeholder="1301">
     </div>
     <div class="form-group">
-      <label>Upload Logo Masjid (Pilih Gambar Gambar PNG/JPG)</label>
+      <label>Upload Logo Masjid (Pilih Gambar PNG/JPG)</label>
       <input type="file" id="inp-logo-file" class="form-control" accept="image/*">
       <img id="img-preview" class="preview-logo" alt="Preview Logo">
     </div>
@@ -76,6 +86,12 @@
       <input type="text" id="inp-waktu" class="form-control" placeholder="Sabtu Besok • Ba'da Subuh">
     </div>
     <button class="btn-save" id="btn-add-agenda">Tambah Agenda</button>
+
+    <!-- TABEL DAFTAR AGENDA TERPOPULER/AKTIF -->
+    <div class="agenda-list-container">
+      <h4 style="color:#2dd4bf; margin-bottom: 12px;">Daftar Agenda Aktif</h4>
+      <div id="agenda-list-box">Memuat daftar agenda...</div>
+    </div>
   </div>
 
   <!-- MENU 3: RUNNING TEXT -->
@@ -89,7 +105,7 @@
   </div>
 
   <script type="module">
-    import { auth, db, ref, set, push, onValue } from './js/firebase-config.js';
+    import { auth, db, ref, set, push, onValue, remove } from './js/firebase-config.js';
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     onAuthStateChanged(auth, (user) => {
@@ -107,7 +123,6 @@
 
     let logoBase64 = null;
 
-    // Convert Logo ke Base64 agar dapat disimpan langsung di Realtime DB tanpa Storage
     document.getElementById('inp-logo-file').addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
@@ -149,15 +164,70 @@
       alert('Profil & Logo Masjid Berhasil Disimpan!');
     };
 
+    // FITUR: Tambah Agenda Baru
     document.getElementById('btn-add-agenda').onclick = () => {
+      const kategori = document.getElementById('inp-kategori').value.trim();
+      const judul = document.getElementById('inp-judul').value.trim();
+      const penceramah = document.getElementById('inp-penceramah').value.trim();
+      const waktu = document.getElementById('inp-waktu').value.trim();
+
+      if (!judul || !waktu) {
+        alert('Mohon isi minimal Judul dan Waktu agenda!');
+        return;
+      }
+
       push(ref(db, 'agendas'), {
-        kategori: document.getElementById('inp-kategori').value,
-        judul: document.getElementById('inp-judul').value,
-        penceramah: document.getElementById('inp-penceramah').value,
-        waktu: document.getElementById('inp-waktu').value
+        kategori: kategori || 'AGENDA',
+        judul: judul,
+        penceramah: penceramah || '-',
+        waktu: waktu
+      }).then(() => {
+        alert('Agenda Baru Berhasil Ditambahkan!');
+        // Clear Form Input
+        document.getElementById('inp-kategori').value = '';
+        document.getElementById('inp-judul').value = '';
+        document.getElementById('inp-penceramah').value = '';
+        document.getElementById('inp-waktu').value = '';
       });
-      alert('Agenda Baru Berhasil Ditambahkan!');
     };
+
+    // FITUR: Tampilkan & Hapus Agenda Realtime
+    onValue(ref(db, 'agendas'), (snapshot) => {
+      const agendas = snapshot.val();
+      const listContainer = document.getElementById('agenda-list-box');
+      listContainer.innerHTML = '';
+
+      if (agendas) {
+        Object.keys(agendas).forEach((key) => {
+          const item = agendas[key];
+          const itemEl = document.createElement('div');
+          itemEl.className = 'agenda-item';
+          itemEl.innerHTML = `
+            <div class="agenda-info">
+              <span class="agenda-badge">${item.kategori}</span>
+              <div class="agenda-title">${item.judul}</div>
+              <div class="agenda-sub"><i class="fa-solid fa-user-tie"></i> ${item.penceramah} | <i class="fa-solid fa-clock"></i> ${item.waktu}</div>
+            </div>
+            <button class="btn-delete" data-id="${key}"><i class="fa-solid fa-trash"></i> Hapus</button>
+          `;
+          listContainer.appendChild(itemEl);
+        });
+
+        // Event Listener Tombol Hapus
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+          btn.onclick = (e) => {
+            const id = e.currentTarget.getAttribute('data-id');
+            if (confirm('Yakin ingin menghapus agenda ini?')) {
+              remove(ref(db, `agendas/${id}`))
+                .then(() => alert('Agenda berhasil dihapus!'))
+                .catch((err) => console.error('Gagal menghapus:', err));
+            }
+          };
+        });
+      } else {
+        listContainer.innerHTML = '<p style="color:#64748b; font-size:13px;">Belum ada agenda tersimpan.</p>';
+      }
+    });
 
     document.getElementById('btn-save-running').onclick = () => {
       set(ref(db, 'config/running_text'), document.getElementById('inp-running-text').value);

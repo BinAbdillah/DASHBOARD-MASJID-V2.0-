@@ -3,21 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Display Signage Masjid Online 2.0 - Elegan Keemasan</title>
+<title>Display Signage Masjid Online 2.0 - Modern Glassmorphism</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
-    --bg-dark: #070a0f;
-    --card-bg: rgba(15, 20, 30, 0.75);
+    /* Glassmorphism Color Palette */
+    --glass-bg: rgba(12, 18, 28, 0.45);
+    --glass-bg-hover: rgba(20, 28, 42, 0.6);
+    --glass-border: rgba(212, 175, 55, 0.25);
+    --glass-border-light: rgba(255, 255, 255, 0.12);
+    
     --gold-primary: #d4af37;
     --gold-light: #f3e5ab;
     --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
-    --gold-glow: rgba(212, 175, 55, 0.3);
-    --teal-accent: #0f766e;
+    --gold-glow: rgba(212, 175, 55, 0.35);
+    
     --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --border-gold: rgba(212, 175, 55, 0.4);
+    --text-muted: #cbd5e1;
   }
 
   * {
@@ -28,7 +31,9 @@
 
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background: radial-gradient(circle at 50% 30%, #151d2a 0%, #080d16 60%, #030508 100%);
+    /* High Definition Dark Islamic Geometry Wallpaper */
+    background: linear-gradient(rgba(4, 7, 12, 0.35), rgba(4, 7, 12, 0.5)), 
+                url('./assets/bg1.jpg') center/cover no-repeat fixed;
     color: var(--text-main);
     height: 100vh;
     overflow: hidden;
@@ -36,17 +41,18 @@
     flex-direction: column;
   }
 
-  /* Header */
+  /* Header Glassmorphism */
   .header {
     height: 80px;
     padding: 15px 40px;
-    background: rgba(8, 12, 20, 0.92);
-    border-bottom: 2px solid;
-    border-image: linear-gradient(90deg, transparent, var(--gold-primary), transparent) 1;
+    background: rgba(8, 12, 20, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
   .brand {
@@ -83,7 +89,7 @@
   .brand-subtitle {
     font-size: 12px;
     color: var(--gold-light);
-    opacity: 0.8;
+    opacity: 0.9;
     letter-spacing: 0.5px;
   }
 
@@ -95,7 +101,7 @@
     font-family: 'Cinzel', serif;
     font-size: 28px;
     font-weight: 700;
-    color: var(--gold-light);
+    color: #ffffff;
     text-shadow: 0 0 12px var(--gold-glow);
     font-variant-numeric: tabular-nums;
   }
@@ -112,10 +118,12 @@
     color: var(--gold-primary);
   }
 
-  /* Live Quran Banner */
+  /* Live Quran Banner Glass */
   .quran-banner {
-    background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.12) 0%, rgba(15, 20, 30, 0.6) 80%);
-    border-bottom: 1px solid var(--border-gold);
+    background: rgba(15, 23, 38, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border-light);
     padding: 14px 50px;
     text-align: center;
     min-height: 110px;
@@ -124,7 +132,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
   }
 
   .quran-container {
@@ -140,7 +148,7 @@
     font-family: 'Amiri', serif;
     font-size: 24px;
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     direction: rtl;
     line-height: 1.6;
   }
@@ -153,7 +161,7 @@
     letter-spacing: 0.2px;
   }
 
-  /* Main Grid */
+  /* Main Grid Layout */
   .main-content {
     flex: 1;
     display: grid;
@@ -163,15 +171,18 @@
     overflow: hidden;
   }
 
+  /* Glass Card Base Style */
   .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-gold);
-    border-radius: 18px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
     padding: 22px;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.03);
+    transition: background 0.3s ease;
   }
 
   .card-title {
@@ -182,7 +193,7 @@
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    border-bottom: 1px solid var(--border-gold);
+    border-bottom: 1px solid var(--glass-border-light);
     padding-bottom: 12px;
     margin-bottom: 18px;
     display: flex;
@@ -195,7 +206,7 @@
     -webkit-text-fill-color: initial;
   }
 
-  /* Prayer Times */
+  /* Prayer Times Items */
   .prayer-list {
     display: flex;
     flex-direction: column;
@@ -209,17 +220,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 20px;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
     transition: all 0.3s ease;
   }
 
   .prayer-item.active {
-    background: linear-gradient(90deg, rgba(212, 175, 55, 0.25) 0%, rgba(15, 20, 30, 0.2) 100%);
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%);
     border-left: 4px solid var(--gold-primary);
-    border-color: var(--border-gold);
-    box-shadow: 0 0 15px var(--gold-glow);
+    border-color: var(--glass-border);
+    box-shadow: 0 0 20px var(--gold-glow);
   }
 
   .prayer-name {
@@ -235,14 +247,14 @@
     color: var(--gold-light);
   }
 
-  /* Centerpiece Countdown */
+  /* Centerpiece Dynamic Glass Highlight */
   .centerpiece {
     text-align: center;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, rgba(15, 20, 30, 0.9) 80%);
-    border: 2px solid var(--gold-primary);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.1);
+    background: rgba(18, 25, 38, 0.6);
+    border: 1.5px solid var(--gold-primary);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.2), inset 0 0 25px rgba(212, 175, 55, 0.08);
   }
 
   .centerpiece-subtitle {
@@ -280,7 +292,7 @@
     letter-spacing: 1px;
   }
 
-  /* Agenda Card */
+  /* Agenda Section */
   .agenda-wrapper {
     display: flex;
     flex: 1;
@@ -288,13 +300,13 @@
   }
 
   .agenda-card-item {
-    background: rgba(212, 175, 55, 0.05);
-    border: 1px solid var(--border-gold);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
     border-radius: 14px;
     padding: 22px;
     text-align: center;
     width: 100%;
-    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05);
+    backdrop-filter: blur(10px);
   }
 
   .agenda-badge {
@@ -327,7 +339,7 @@
     color: var(--text-muted);
   }
 
-  /* Ramadhan Countdown Bar */
+  /* Ramadhan Countdown Bar Glass */
   .ramadhan-container {
     padding: 0 40px;
     margin-bottom: 12px;
@@ -336,14 +348,16 @@
   }
 
   .ramadhan-card {
-    background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.25) 50%, rgba(212, 175, 55, 0.1) 100%);
-    border: 1px solid var(--border-gold);
+    background: rgba(15, 20, 30, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
     border-radius: 30px;
     padding: 10px 36px;
     display: flex;
     gap: 16px;
     align-items: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   }
 
   .ramadhan-label {
@@ -362,11 +376,13 @@
     text-shadow: 0 0 10px var(--gold-glow);
   }
 
-  /* Footer Ticker */
+  /* Footer Ticker Glassmorphism Fix */
   .footer-ticker {
     height: 44px;
-    background: rgba(5, 8, 14, 0.95);
-    border-top: 1px solid var(--border-gold);
+    background: rgba(5, 8, 14, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--glass-border-light);
     display: flex;
     align-items: center;
     padding: 0 20px;
@@ -385,13 +401,12 @@
     margin-right: 18px;
     white-space: nowrap;
     box-shadow: 0 0 10px var(--gold-glow);
-    z-index: 2; /* Memastikan badge selalu berada di lapisan atas */
+    z-index: 2;
   }
 
-  /* Container khusus untuk membatasi pergerakan teks */
   .ticker-content {
     flex: 1;
-    overflow: hidden; /* Memotong teks agar tidak tembus melampaui badge */
+    overflow: hidden;
     position: relative;
     display: flex;
     align-items: center;
@@ -400,7 +415,7 @@
   .ticker-text {
     display: inline-block;
     white-space: nowrap;
-    padding-left: 100%; /* Memastikan teks selalu mulai animasi tepat dari ujung kanan */
+    padding-left: 100%;
     animation: marquee 25s linear infinite;
     font-size: 14px;
     color: var(--gold-light);
@@ -441,7 +456,7 @@
 
   <main class="main-content">
     <section class="card">
-      <div class="card-title"><i class="fa-solid fa-clock"></i> JADWAL SHALAT (KEMENAG)</div>
+      <div class="card-title"><i class="fa-solid fa-clock"></i> JADWAL SHALAT</div>
       <div class="prayer-list">
         <div class="prayer-item" id="p-subuh"><span class="prayer-name">Subuh</span><span class="prayer-time" id="time-subuh">--:-- WIB</span></div>
         <div class="prayer-item" id="p-dzuhur"><span class="prayer-name">Dzuhur</span><span class="prayer-time" id="time-dzuhur">--:-- WIB</span></div>
@@ -474,7 +489,7 @@
   <div class="ramadhan-container">
     <div class="ramadhan-card">
       <i class="fa-solid fa-moon" style="color: var(--gold-primary);"></i>
-      <span class="ramadhan-label">COUNTDOWN MENUJU RAMADHAN :</span>
+      <span class="ramadhan-label"> MENUJU RAMADHAN :</span>
       <span class="ramadhan-value" id="ramadhan-timer">-- Hari : -- Jam</span>
     </div>
   </div>
@@ -492,7 +507,6 @@
     let prayerSchedule = {};
     let cityId = '1301';
 
-    // Backup ayat Al-Qur'an lokal jika API Publik timeout/error
     const fallbackAyahs = [
       {
         ar: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا • إِنَّ مَعَ الْعُسْرِ يُسْرًا",
@@ -505,16 +519,11 @@
       {
         ar: "يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ",
         tr: '"Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan salat." — QS. Al-Baqarah: 153'
-      },
-      {
-        ar: "إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنْكَرِ",
-        tr: '"Sesungguhnya salat itu mencegah dari (perbuatan) keji dan mungkar." — QS. Al-Ankabut: 45'
       }
     ];
 
     let fallbackIndex = 0;
 
-    // 1. Ayat Al-Qur'an Otomatis Berganti Tiap 15 Detik
     async function fetchRandomQuranVerse() {
       const quranBox = document.getElementById('quran-box');
       quranBox.classList.add('fade-out');
@@ -555,7 +564,6 @@
     fetchRandomQuranVerse();
     setInterval(fetchRandomQuranVerse, 15000);
 
-    // 2. Tanggal Masehi & Hijriyah
     function updateDates() {
       const now = new Date();
       const optionsMasehi = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
@@ -578,7 +586,6 @@
     }
     updateDates();
 
-    // 3. Jadwal Shalat Kemenag RI
     async function fetchKemenagPrayerTimes() {
       const now = new Date();
       const y = now.getFullYear();
@@ -590,13 +597,7 @@
         const data = await res.json();
         if (data.status && data.data.jadwal) {
           const j = data.data.jadwal;
-          prayerSchedule = {
-            Subuh: j.subuh,
-            Dzuhur: j.dzuhur,
-            Ashar: j.ashar,
-            Maghrib: j.maghrib,
-            Isya: j.isya
-          };
+          prayerSchedule = { Subuh: j.subuh, Dzuhur: j.dzuhur, Ashar: j.ashar, Maghrib: j.maghrib, Isya: j.isya };
 
           document.getElementById('time-subuh').innerText = j.subuh + ' WIB';
           document.getElementById('time-dzuhur').innerText = j.dzuhur + ' WIB';
@@ -610,7 +611,6 @@
     }
     fetchKemenagPrayerTimes();
 
-    // 4. Jam & Countdown Dynamic
     function updateClockAndCountdown() {
       const now = new Date();
       const hours = String(now.getHours()).padStart(2, '0');
@@ -664,7 +664,6 @@
 
     setInterval(updateClockAndCountdown, 1000);
 
-    // 5. Countdown Ramadhan
     function updateRamadhanCountdown() {
       const now = new Date();
       const ramadhanDate = new Date('2027-02-18T00:00:00');
@@ -679,7 +678,6 @@
     }
     updateRamadhanCountdown();
 
-    // 6. Realtime Config Firebase
     onValue(ref(db, 'config'), (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -696,24 +694,48 @@
       }
     });
 
-    // 7. Realtime Agenda Firebase
-    onValue(ref(db, 'agendas'), (snapshot) => {
-      const agendas = snapshot.val();
-      if (agendas) {
-        const keys = Object.keys(agendas);
-        const lastKey = keys[keys.length - 1];
-        const item = agendas[lastKey];
+    // Variabel untuk menyimpan timer interval
+let agendaTimer = null;
 
-        document.getElementById('agenda-badge').innerText = item.kategori || 'AGENDA';
-        document.getElementById('agenda-judul').innerText = item.judul || '-';
-        document.getElementById('agenda-penceramah').innerText = item.penceramah || '-';
-        document.getElementById('agenda-waktu').innerText = item.waktu || '-';
-      } else {
-        document.getElementById('agenda-judul').innerText = 'Belum Ada Agenda';
-        document.getElementById('agenda-penceramah').innerText = '-';
-        document.getElementById('agenda-waktu').innerText = '-';
-      }
-    });
+// Mengambil Data Agenda dari Firebase dan Mengaktifkan Rotasi
+onValue(ref(db, 'agendas'), (snapshot) => {
+  const data = snapshot.val();
+  
+  // Hentikan interval sebelumnya jika ada perubahan data dari Admin
+  if (agendaTimer) clearInterval(agendaTimer);
+
+  if (data) {
+    // Ubah object Firebase menjadi array list
+    const agendaList = Object.keys(data).map(key => data[key]);
+    let currentIndex = 0;
+
+    // Fungsi update tampilan UI agenda
+    const updateAgendaUI = (index) => {
+      const item = agendaList[index];
+      document.getElementById('agenda-badge').innerText = item.kategori || 'AGENDA';
+      document.getElementById('agenda-judul').innerText = item.judul || '-';
+      document.getElementById('agenda-penceramah').innerText = item.penceramah || '-';
+      document.getElementById('agenda-waktu').innerText = item.waktu || '-';
+    };
+
+    // Tampilkan data agenda pertama secara langsung
+    updateAgendaUI(0);
+
+    // Aktifkan rotasi otomatis HANYA JIKA agenda lebih dari 1
+    if (agendaList.length > 1) {
+      agendaTimer = setInterval(() => {
+        currentIndex = (currentIndex + 1) % agendaList.length;
+        updateAgendaUI(currentIndex);
+      }, 7000); // Berpindah slide setiap 7 detik (7000 ms)
+    }
+  } else {
+    // Tampilan default jika belum ada agenda tersimpan di database
+    document.getElementById('agenda-badge').innerText = 'AGENDA';
+    document.getElementById('agenda-judul').innerText = 'Belum Ada Agenda';
+    document.getElementById('agenda-penceramah').innerText = '-';
+    document.getElementById('agenda-waktu').innerText = '-';
+  }
+});
   </script>
 </body>
 </html>
