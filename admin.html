@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Signage Masjid</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 20px; }
+  .navbar { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 15px 25px; border-radius: 12px; margin-bottom: 25px; }
+  .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+  .tab-btn { background: #1e293b; color: #94a3b8; border: 1px solid rgba(255,255,255,0.1); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+  .tab-btn.active { background: #0d9488; color: #fff; }
+  .panel-card { background: #1e293b; border-radius: 12px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+  .form-group { margin-bottom: 15px; }
+  .form-group label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px; }
+  .form-control { width: 100%; padding: 12px; background: #0f172a; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; box-sizing: border-box; }
+  .btn-save { background: #f59e0b; color: #000; border: none; padding: 12px 20px; font-weight: 800; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; }
+  .preview-logo { height: 60px; margin-top: 10px; display: none; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div style="font-size: 18px; font-weight: 800; color: #f59e0b;"><i class="fa-solid fa-user-shield"></i> ADMIN PANEL MASJID</div>
+    <button id="btn-logout" style="background:#ef4444; color:#fff; border:none; padding:8px 15px; border-radius:6px; cursor:pointer;">Logout</button>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" id="tab-btn-1"><i class="fa-solid fa-mosque"></i> Profil & Logo</button>
+    <button class="tab-btn" id="tab-btn-2"><i class="fa-solid fa-calendar-days"></i> Agenda & Kegiatan</button>
+    <button class="tab-btn" id="tab-btn-3"><i class="fa-solid fa-bullhorn"></i> Running Text</button>
+  </div>
+
+  <!-- MENU 1: DATA MASJID & LOGO -->
+  <div id="tab-1" class="panel-card">
+    <h3 style="color:#f59e0b; margin-top:0;">Pengaturan Profil & Logo Masjid</h3>
+    <div class="form-group">
+      <label>Nama Masjid</label>
+      <input type="text" id="inp-nama" class="form-control" placeholder="MASJID JAMIE AL-BARKAH">
+    </div>
+    <div class="form-group">
+      <label>Alamat / Lokasi</label>
+      <input type="text" id="inp-alamat" class="form-control" placeholder="RW 013 Menteng Atas • Jakarta Selatan">
+    </div>
+    <div class="form-group">
+      <label>ID Kota Kemenag RI (Contoh: 1301 untuk Jakarta Selatan)</label>
+      <input type="text" id="inp-city-id" class="form-control" placeholder="1301">
+    </div>
+    <div class="form-group">
+      <label>Upload Logo Masjid (Pilih Gambar Gambar PNG/JPG)</label>
+      <input type="file" id="inp-logo-file" class="form-control" accept="image/*">
+      <img id="img-preview" class="preview-logo" alt="Preview Logo">
+    </div>
+    <button class="btn-save" id="btn-save-masjid">Simpan Data Profil & Logo</button>
+  </div>
+
+  <!-- MENU 2: AGENDA -->
+  <div id="tab-2" class="panel-card" style="display:none;">
+    <h3 style="color:#f59e0b; margin-top:0;">Tambah Agenda Baru</h3>
+    <div class="form-group">
+      <label>Kategori Kegiatan</label>
+      <input type="text" id="inp-kategori" class="form-control" placeholder="KAJIAN SUBUH">
+    </div>
+    <div class="form-group">
+      <label>Judul / Tema</label>
+      <input type="text" id="inp-judul" class="form-control" placeholder="Tafsir Surah Al-Baqarah">
+    </div>
+    <div class="form-group">
+      <label>Penceramah / Narasumber</label>
+      <input type="text" id="inp-penceramah" class="form-control" placeholder="Ust. H. Ahmad Ridwan, Lc.">
+    </div>
+    <div class="form-group">
+      <label>Waktu & Tanggal</label>
+      <input type="text" id="inp-waktu" class="form-control" placeholder="Sabtu Besok • Ba'da Subuh">
+    </div>
+    <button class="btn-save" id="btn-add-agenda">Tambah Agenda</button>
+  </div>
+
+  <!-- MENU 3: RUNNING TEXT -->
+  <div id="tab-3" class="panel-card" style="display:none;">
+    <h3 style="color:#f59e0b; margin-top:0;">Update Running Text</h3>
+    <div class="form-group">
+      <label>Pesan Pengumuman / Himbauan Footer</label>
+      <textarea id="inp-running-text" class="form-control" rows="4"></textarea>
+    </div>
+    <button class="btn-save" id="btn-save-running">Perbarui Running Text</button>
+  </div>
+
+  <script type="module">
+    import { auth, db, ref, set, push, onValue } from './js/firebase-config.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) window.location.href = 'login.html';
+    });
+
+    const t1 = document.getElementById('tab-1'), t2 = document.getElementById('tab-2'), t3 = document.getElementById('tab-3');
+    const b1 = document.getElementById('tab-btn-1'), b2 = document.getElementById('tab-btn-2'), b3 = document.getElementById('tab-btn-3');
+
+    b1.onclick = () => { t1.style.display='block'; t2.style.display='none'; t3.style.display='none'; b1.classList.add('active'); b2.classList.remove('active'); b3.classList.remove('active'); };
+    b2.onclick = () => { t1.style.display='none'; t2.style.display='block'; t3.style.display='none'; b1.classList.remove('active'); b2.classList.add('active'); b3.classList.remove('active'); };
+    b3.onclick = () => { t1.style.display='none'; t2.style.display='none'; t3.style.display='block'; b1.classList.remove('active'); b2.classList.remove('active'); b3.classList.add('active'); };
+
+    document.getElementById('btn-logout').onclick = () => signOut(auth);
+
+    let logoBase64 = null;
+
+    // Convert Logo ke Base64 agar dapat disimpan langsung di Realtime DB tanpa Storage
+    document.getElementById('inp-logo-file').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          logoBase64 = evt.target.result;
+          const imgPreview = document.getElementById('img-preview');
+          imgPreview.src = logoBase64;
+          imgPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Load Existing Config Data
+    onValue(ref(db, 'config'), (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        if (data.nama_masjid) document.getElementById('inp-nama').value = data.nama_masjid;
+        if (data.alamat_masjid) document.getElementById('inp-alamat').value = data.alamat_masjid;
+        if (data.city_id) document.getElementById('inp-city-id').value = data.city_id;
+        if (data.running_text) document.getElementById('inp-running-text').value = data.running_text;
+        if (data.logo_url) {
+          const imgPreview = document.getElementById('img-preview');
+          imgPreview.src = data.logo_url;
+          imgPreview.style.display = 'block';
+          logoBase64 = data.logo_url;
+        }
+      }
+    });
+
+    document.getElementById('btn-save-masjid').onclick = () => {
+      set(ref(db, 'config/nama_masjid'), document.getElementById('inp-nama').value);
+      set(ref(db, 'config/alamat_masjid'), document.getElementById('inp-alamat').value);
+      set(ref(db, 'config/city_id'), document.getElementById('inp-city-id').value || '1301');
+      if (logoBase64) {
+        set(ref(db, 'config/logo_url'), logoBase64);
+      }
+      alert('Profil & Logo Masjid Berhasil Disimpan!');
+    };
+
+    document.getElementById('btn-add-agenda').onclick = () => {
+      push(ref(db, 'agendas'), {
+        kategori: document.getElementById('inp-kategori').value,
+        judul: document.getElementById('inp-judul').value,
+        penceramah: document.getElementById('inp-penceramah').value,
+        waktu: document.getElementById('inp-waktu').value
+      });
+      alert('Agenda Baru Berhasil Ditambahkan!');
+    };
+
+    document.getElementById('btn-save-running').onclick = () => {
+      set(ref(db, 'config/running_text'), document.getElementById('inp-running-text').value);
+      alert('Running Text Berhasil Diperbarui!');
+    };
+  </script>
+</body>
+</html>
