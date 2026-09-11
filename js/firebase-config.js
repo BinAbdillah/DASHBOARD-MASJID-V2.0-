@@ -8,6 +8,8 @@ const firebaseConfig = {
 
     authDomain: "dmov2-0.firebaseapp.com",
 
+    databaseURL: "https://dmov2-0-default-rtdb.asia-southeast1.firebasedatabase.app"
+
     projectId: "dmov2-0",
 
     storageBucket: "dmov2-0.firebasestorage.app",
