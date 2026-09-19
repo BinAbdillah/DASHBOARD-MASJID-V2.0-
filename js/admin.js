@@ -1,6 +1,7 @@
+import { firebaseService } from './firebase-service.js';
+import { $, setValue } from './utils.js';
 import { auth, db, ref, set, push, onValue, remove } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-import { $, $$, setValue, setText } from './utils.js';
 
 onAuthStateChanged(auth, (user) => {
   if (!user) window.location.href = 'login.html';
@@ -21,27 +22,18 @@ const tabButtons = {
 };
 
 function resetTabs() {
-  Object.values(tabs).forEach((tab) => {
-    if (tab) tab.style.display = 'none';
-  });
-
-  Object.values(tabButtons).forEach((button) => {
-    if (button) button.classList.remove('active');
-  });
+  Object.values(tabs).forEach((tab) => tab && (tab.style.display = 'none'));
+  Object.values(tabButtons).forEach((button) => button && button.classList.remove('active'));
 }
 
-function bindTabs() {
-  Object.entries(tabButtons).forEach(([key, button]) => {
-    if (!button) return;
-    button.onclick = () => {
-      resetTabs();
-      if (tabs[key]) {
-        tabs[key].style.display = 'block';
-      }
-      button.classList.add('active');
-    };
-  });
-}
+Object.entries(tabButtons).forEach(([key, button]) => {
+  if (!button) return;
+  button.onclick = () => {
+    resetTabs();
+    if (tabs[key]) tabs[key].style.display = 'block';
+    button.classList.add('active');
+  };
+});
 
 $('#btn-logout').onclick = () => signOut(auth);
 
@@ -89,19 +81,22 @@ onValue(ref(db, 'config'), (snapshot) => {
   }
 });
 
-$('#btn-save-masjid').onclick = () => {
-  set(ref(db, 'config/nama_masjid'), $('#inp-nama').value);
-  set(ref(db, 'config/alamat_masjid'), $('#inp-alamat').value);
-  set(ref(db, 'config/city_id'), $('#inp-city-id').value || '1301');
-
-  if (logoBase64) {
-    set(ref(db, 'config/logo_url'), logoBase64);
+$('#btn-save-masjid').onclick = async () => {
+  try {
+    await firebaseService.saveProfile({
+      namaMasjid: $('#inp-nama').value,
+      alamatMasjid: $('#inp-alamat').value,
+      cityId: $('#inp-city-id').value || '1301',
+      logoUrl: logoBase64
+    });
+    alert('Profil & Logo Masjid Berhasil Disimpan!');
+  } catch (error) {
+    console.error('Gagal menyimpan profil:', error);
+    alert('Gagal menyimpan profil masjid.');
   }
-
-  alert('Profil & Logo Masjid Berhasil Disimpan!');
 };
 
-$('#btn-add-agenda').onclick = () => {
+$('#btn-add-agenda').onclick = async () => {
   const kategori = $('#inp-kategori').value.trim();
   const judul = $('#inp-judul').value.trim();
   const penceramah = $('#inp-penceramah').value.trim();
@@ -112,34 +107,32 @@ $('#btn-add-agenda').onclick = () => {
     return;
   }
 
-  push(ref(db, 'agendas'), {
-    kategori: kategori || 'AGENDA',
-    judul,
-    penceramah: penceramah || '-',
-    waktu
-  }).then(() => {
+  try {
+    await firebaseService.addAgenda({ kategori, judul, penceramah, waktu });
     alert('Agenda Utama Berhasil Ditambahkan!');
     setValue('#inp-kategori', '');
     setValue('#inp-judul', '');
     setValue('#inp-penceramah', '');
     setValue('#inp-waktu', '');
-  });
+  } catch (error) {
+    console.error('Gagal menambahkan agenda:', error);
+    alert('Gagal menambahkan agenda.');
+  }
 };
 
-$('#btn-save-kegiatan').onclick = () => {
-  const badge = $('#inp-keg-badge').value.trim();
-  const judul = $('#inp-keg-judul').value.trim();
-  const speaker = $('#inp-keg-speaker').value.trim();
-  const waktu = $('#inp-keg-waktu').value.trim();
-
-  set(ref(db, 'config/kegiatan_lain'), {
-    badge: badge || 'KEGIATAN LAIN',
-    judul,
-    speaker,
-    waktu
-  }).then(() => {
+$('#btn-save-kegiatan').onclick = async () => {
+  try {
+    await firebaseService.saveActivity({
+      badge: $('#inp-keg-badge').value.trim(),
+      judul: $('#inp-keg-judul').value.trim(),
+      speaker: $('#inp-keg-speaker').value.trim(),
+      waktu: $('#inp-keg-waktu').value.trim()
+    });
     alert('Kegiatan Lain (Statis) Berhasil Diperbarui!');
-  });
+  } catch (error) {
+    console.error('Gagal menyimpan kegiatan:', error);
+    alert('Gagal menyimpan kegiatan.');
+  }
 };
 
 onValue(ref(db, 'agendas'), (snapshot) => {
@@ -169,21 +162,28 @@ onValue(ref(db, 'agendas'), (snapshot) => {
     listContainer.appendChild(itemEl);
   });
 
-  $$('.btn-delete').forEach((button) => {
-    button.onclick = (event) => {
+  [...document.querySelectorAll('.btn-delete')].forEach((button) => {
+    button.onclick = async (event) => {
       const id = event.currentTarget.getAttribute('data-id');
-      if (confirm('Yakin ingin menghapus agenda ini?')) {
-        remove(ref(db, `agendas/${id}`))
-          .then(() => alert('Agenda berhasil dihapus!'))
-          .catch((error) => console.error('Gagal menghapus:', error));
+      if (!confirm('Yakin ingin menghapus agenda ini?')) return;
+
+      try {
+        await firebaseService.deleteAgenda(id);
+        alert('Agenda berhasil dihapus!');
+      } catch (error) {
+        console.error('Gagal menghapus:', error);
+        alert('Gagal menghapus agenda.');
       }
     };
   });
 });
 
-$('#btn-save-running').onclick = () => {
-  set(ref(db, 'config/running_text'), $('#inp-running-text').value);
-  alert('Running Text Berhasil Diperbarui!');
+$('#btn-save-running').onclick = async () => {
+  try {
+    await firebaseService.saveRunningText($('#inp-running-text').value);
+    alert('Running Text Berhasil Diperbarui!');
+  } catch (error) {
+    console.error('Gagal menyimpan running text:', error);
+    alert('Gagal menyimpan running text.');
+  }
 };
-
-bindTabs();
