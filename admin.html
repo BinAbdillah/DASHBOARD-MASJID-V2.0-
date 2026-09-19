@@ -9,96 +9,53 @@
   <link rel="stylesheet" href="./css/admin.css">
 </head>
 <body>
-  <div class="navbar">
-    <div style="font-size: 18px; font-weight: 800; color: #d4af37;"><i class="fa-solid fa-user-shield"></i> ADMIN PANEL MASJID 2.0</div>
-    <button id="btn-logout" style="background:#ef4444; color:#fff; border:none; padding:8px 15px; border-radius:6px; cursor:pointer;">Logout</button>
-  </div>
+  <header class="navbar">
+    <div class="navbar-title"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> ADMIN PANEL MASJID 2.0</div>
+    <button id="btn-logout" class="btn-logout" type="button">Logout</button>
+  </header>
 
-  <div class="nav-tabs">
-    <button class="tab-btn active" id="tab-btn-1"><i class="fa-solid fa-mosque"></i> Profil & Logo</button>
-    <button class="tab-btn" id="tab-btn-2"><i class="fa-solid fa-calendar-days"></i> Agenda Utama (Rotasi)</button>
-    <button class="tab-btn" id="tab-btn-3"><i class="fa-solid fa-hand-holding-heart"></i> Kegiatan Lain (Statis)</button>
-    <button class="tab-btn" id="tab-btn-4"><i class="fa-solid fa-bullhorn"></i> Running Text</button>
-  </div>
+  <nav class="nav-tabs" aria-label="Menu admin">
+    <button class="tab-btn active" id="tab-btn-1" type="button"><i class="fa-solid fa-mosque" aria-hidden="true"></i> Profil & Logo</button>
+    <button class="tab-btn" id="tab-btn-2" type="button"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Agenda Utama (Rotasi)</button>
+    <button class="tab-btn" id="tab-btn-3" type="button"><i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i> Kegiatan Lain (Statis)</button>
+    <button class="tab-btn" id="tab-btn-4" type="button"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Running Text</button>
+  </nav>
 
-  <div id="tab-1" class="panel-card">
-    <h3 style="color:#d4af37; margin-top:0;">Pengaturan Profil & Logo Masjid</h3>
-    <div class="form-group">
-      <label>Nama Masjid</label>
-      <input type="text" id="inp-nama" class="form-control" placeholder="MASJID JAMIE AL-BARKAH">
-    </div>
-    <div class="form-group">
-      <label>Alamat / Lokasi</label>
-      <input type="text" id="inp-alamat" class="form-control" placeholder="RW 013 Menteng Atas • Jakarta Selatan">
-    </div>
-    <div class="form-group">
-      <label>ID Kota Kemenag RI (Contoh: 1301 untuk Jakarta Selatan)</label>
-      <input type="text" id="inp-city-id" class="form-control" placeholder="1301">
-    </div>
-    <div class="form-group">
-      <label>Upload Logo Masjid (Pilih Gambar PNG/JPG)</label>
-      <input type="file" id="inp-logo-file" class="form-control" accept="image/*">
-      <img id="img-preview" class="preview-logo" alt="Preview Logo">
-    </div>
-    <button class="btn-save" id="btn-save-masjid">Simpan Data Profil & Logo</button>
-  </div>
+  <main>
+    <section id="tab-1" class="panel-card" aria-labelledby="tab-btn-1">
+      <h3 class="panel-title">Pengaturan Profil & Logo Masjid</h3>
+      <div class="form-group"><label for="inp-nama">Nama Masjid</label><input type="text" id="inp-nama" class="form-control" placeholder="MASJID JAMIE AL-BARKAH" autocomplete="organization"></div>
+      <div class="form-group"><label for="inp-alamat">Alamat / Lokasi</label><input type="text" id="inp-alamat" class="form-control" placeholder="RW 013 Menteng Atas • Jakarta Selatan"></div>
+      <div class="form-group"><label for="inp-city-id">ID Kota Kemenag RI (Contoh: 1301 untuk Jakarta Selatan)</label><input type="text" id="inp-city-id" class="form-control" placeholder="1301" inputmode="numeric"></div>
+      <div class="form-group"><label for="inp-logo-file">Upload Logo Masjid (PNG/JPG)</label><input type="file" id="inp-logo-file" class="form-control" accept="image/png,image/jpeg,image/webp"><img id="img-preview" class="preview-logo" alt="Preview logo masjid"></div>
+      <button class="btn-save" id="btn-save-masjid" type="button">Simpan Data Profil & Logo</button>
+    </section>
 
-  <div id="tab-2" class="panel-card" style="display:none;">
-    <h3 style="color:#d4af37; margin-top:0;">Tambah Agenda Utama (Rotasi Slideshow)</h3>
-    <div class="form-group">
-      <label>Kategori / Label Agenda</label>
-      <input type="text" id="inp-kategori" class="form-control" placeholder="KAJIAN MALAM SENIN">
-    </div>
-    <div class="form-group">
-      <label>Judul / Tema Kegiatan</label>
-      <input type="text" id="inp-judul" class="form-control" placeholder="Tafsir Kitab Riyadhul Badiyyah">
-    </div>
-    <div class="form-group">
-      <label>Penceramah / Penanggung Jawab</label>
-      <input type="text" id="inp-penceramah" class="form-control" placeholder="Ustadz K H Abdul Bari">
-    </div>
-    <div class="form-group">
-      <label>Waktu & Tanggal</label>
-      <input type="text" id="inp-waktu" class="form-control" placeholder="Minggu, 18:30 wib / ba'da Maghrib">
-    </div>
-    <button class="btn-save" id="btn-add-agenda">Tambah Agenda Utama</button>
+    <section id="tab-2" class="panel-card" style="display:none" aria-labelledby="tab-btn-2">
+      <h3 class="panel-title">Tambah Agenda Utama (Rotasi Slideshow)</h3>
+      <div class="form-group"><label for="inp-kategori">Kategori / Label Agenda</label><input type="text" id="inp-kategori" class="form-control" placeholder="KAJIAN MALAM SENIN"></div>
+      <div class="form-group"><label for="inp-judul">Judul / Tema Kegiatan</label><input type="text" id="inp-judul" class="form-control" placeholder="Tafsir Kitab Riyadhul Badiyyah"></div>
+      <div class="form-group"><label for="inp-penceramah">Penceramah / Penanggung Jawab</label><input type="text" id="inp-penceramah" class="form-control" placeholder="Ustadz K H Abdul Bari"></div>
+      <div class="form-group"><label for="inp-waktu">Waktu & Tanggal</label><input type="text" id="inp-waktu" class="form-control" placeholder="Minggu, 18:30 WIB / ba'da Maghrib"></div>
+      <button class="btn-save" id="btn-add-agenda" type="button">Tambah Agenda Utama</button>
+      <div class="agenda-list-container"><h4 class="agenda-heading">Daftar Agenda Utama Aktif</h4><div id="agenda-list-box" aria-live="polite">Memuat daftar agenda...</div></div>
+    </section>
 
-    <div class="agenda-list-container">
-      <h4 style="color:#d4af37; margin-bottom: 12px;">Daftar Agenda Utama Aktif</h4>
-      <div id="agenda-list-box">Memuat daftar agenda...</div>
-    </div>
-  </div>
+    <section id="tab-3" class="panel-card" style="display:none" aria-labelledby="tab-btn-3">
+      <h3 class="panel-title teal">Update Kegiatan Lain (Kolom Statis Bawah)</h3>
+      <div class="form-group"><label for="inp-keg-badge">Label Kegiatan</label><input type="text" id="inp-keg-badge" class="form-control" placeholder="KEGIATAN LAIN"></div>
+      <div class="form-group"><label for="inp-keg-judul">Judul Kegiatan</label><input type="text" id="inp-keg-judul" class="form-control" placeholder="Santunan Piatu & Dhuafa"></div>
+      <div class="form-group"><label for="inp-keg-speaker">Pelaksana / Keterangan</label><input type="text" id="inp-keg-speaker" class="form-control" placeholder="Pengurus LMI Masjid"></div>
+      <div class="form-group"><label for="inp-keg-waktu">Waktu Pelaksanaan</label><input type="text" id="inp-keg-waktu" class="form-control" placeholder="Jum'at Ke-2 • Ba'da Ashar"></div>
+      <button class="btn-save btn-secondary" id="btn-save-kegiatan" type="button">Simpan Kegiatan Statis</button>
+    </section>
 
-  <div id="tab-3" class="panel-card" style="display:none;">
-    <h3 style="color:#0d9488; margin-top:0;">Update Kegiatan Lain (Kolom Statis Bawah)</h3>
-    <div class="form-group">
-      <label>Label Kegiatan</label>
-      <input type="text" id="inp-keg-badge" class="form-control" placeholder="KEGIATAN LAIN">
-    </div>
-    <div class="form-group">
-      <label>Judul Kegiatan</label>
-      <input type="text" id="inp-keg-judul" class="form-control" placeholder="Santunan Piatu & Dhuafa">
-    </div>
-    <div class="form-group">
-      <label>Pelaksana / Keterangan</label>
-      <input type="text" id="inp-keg-speaker" class="form-control" placeholder="Pengurus LMI Masjid">
-    </div>
-    <div class="form-group">
-      <label>Waktu Pelaksanaan</label>
-      <input type="text" id="inp-keg-waktu" class="form-control" placeholder="Jum'at Ke-2 • Ba'da Ashar">
-    </div>
-    <button class="btn-save btn-secondary" id="btn-save-kegiatan">Simpan Kegiatan Statis</button>
-  </div>
-
-  <div id="tab-4" class="panel-card" style="display:none;">
-    <h3 style="color:#d4af37; margin-top:0;">Update Running Text</h3>
-    <div class="form-group">
-      <label>Pesan Pengumuman / Himbauan Footer</label>
-      <textarea id="inp-running-text" class="form-control" rows="4"></textarea>
-    </div>
-    <button class="btn-save" id="btn-save-running">Perbarui Running Text</button>
-  </div>
-
+    <section id="tab-4" class="panel-card" style="display:none" aria-labelledby="tab-btn-4">
+      <h3 class="panel-title">Update Running Text</h3>
+      <div class="form-group"><label for="inp-running-text">Pesan Pengumuman / Himbauan Footer</label><textarea id="inp-running-text" class="form-control" rows="4"></textarea></div>
+      <button class="btn-save" id="btn-save-running" type="button">Perbarui Running Text</button>
+    </section>
+  </main>
   <script type="module" src="./js/admin.js"></script>
 </body>
 </html>

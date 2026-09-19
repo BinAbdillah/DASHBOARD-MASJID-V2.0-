@@ -1,1 +1,79 @@
 @import './toast.css';
+
+:root {
+  --admin-bg: #0f172a;
+  --admin-panel: #1e293b;
+  --admin-muted: #94a3b8;
+  --admin-border: rgba(255, 255, 255, 0.1);
+  --admin-gold: #d4af37;
+  --admin-teal: #0d9488;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--admin-bg);
+  color: #f8fafc;
+  margin: 0;
+  padding: 20px;
+}
+
+button, input, textarea { font: inherit; }
+button { transition: filter 0.2s ease, transform 0.2s ease; }
+button:hover { filter: brightness(1.08); }
+button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgba(45, 212, 191, 0.65);
+  outline-offset: 2px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: var(--admin-panel);
+  padding: 15px 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.navbar-title { font-size: 18px; font-weight: 800; color: var(--admin-gold); }
+.btn-logout { background: #ef4444; color: #fff; border: 0; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
+
+.nav-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.tab-btn { background: var(--admin-panel); color: var(--admin-muted); border: 1px solid var(--admin-border); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+.tab-btn.active { background: var(--admin-gold); color: #000; }
+
+.panel-card { background: var(--admin-panel); border-radius: 12px; padding: 25px; border: 1px solid var(--admin-border); margin-bottom: 20px; }
+.panel-title { margin-top: 0; color: var(--admin-gold); }
+.panel-title.teal { color: var(--admin-teal); }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-size: 13px; color: var(--admin-muted); margin-bottom: 6px; }
+.form-control { width: 100%; padding: 12px; background: var(--admin-bg); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; }
+.btn-save { background: var(--admin-gold); color: #000; border: 0; padding: 12px 20px; font-weight: 800; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; }
+.btn-secondary { background: var(--admin-teal); color: #fff; }
+.preview-logo { max-width: 180px; max-height: 100px; margin-top: 10px; display: none; border-radius: 6px; object-fit: contain; }
+
+.agenda-list-container { margin-top: 25px; border-top: 1px solid var(--admin-border); padding-top: 20px; }
+.agenda-heading { color: var(--admin-gold); margin-bottom: 12px; }
+.agenda-item { background: var(--admin-bg); border: 1px solid rgba(255,255,255,0.08); padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.agenda-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.agenda-badge { background: rgba(212,175,55,0.2); color: var(--admin-gold); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; width: fit-content; }
+.agenda-title { font-size: 15px; font-weight: 700; color: #fff; margin: 2px 0; overflow-wrap: anywhere; }
+.agenda-sub { font-size: 13px; color: var(--admin-muted); overflow-wrap: anywhere; }
+.btn-delete { flex: 0 0 auto; background: #ef4444; color: #fff; border: 0; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px; }
+.empty-state { color: #64748b; font-size: 13px; }
+
+@media (max-width: 640px) {
+  body { padding: 12px; }
+  .navbar { align-items: flex-start; padding: 14px; }
+  .navbar-title { font-size: 15px; }
+  .nav-tabs { display: grid; grid-template-columns: 1fr 1fr; }
+  .tab-btn { padding: 10px 8px; font-size: 12px; }
+  .panel-card { padding: 18px; }
+  .agenda-item { align-items: flex-start; flex-direction: column; }
+  .btn-delete { width: 100%; }
+}
