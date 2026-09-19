@@ -1,0 +1,153 @@
+/* Admin page styles extracted from admin.html */
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  margin: 0;
+  padding: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e293b;
+  padding: 15px 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  background: #1e293b;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tab-btn.active {
+  background: #d4af37;
+  color: #000;
+}
+
+.panel-card {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.btn-save {
+  background: #d4af37;
+  color: #000;
+  border: none;
+  padding: 12px 20px;
+  font-weight: 800;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-secondary {
+  background: #0d9488;
+  color: #fff;
+}
+
+.preview-logo {
+  height: 60px;
+  margin-top: 10px;
+  display: none;
+  border-radius: 6px;
+}
+
+.agenda-list-container {
+  margin-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.agenda-item {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.agenda-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agenda-badge {
+  background: rgba(212, 175, 55, 0.2);
+  color: #d4af37;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.agenda-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin: 2px 0;
+}
+
+.agenda-sub {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.btn-delete {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+}

@@ -1,0 +1,423 @@
+/* Display page styles extracted from index.html */
+:root {
+  --glass-bg: rgba(12, 18, 28, 0.45);
+  --glass-bg-hover: rgba(20, 28, 42, 0.6);
+  --glass-border: rgba(212, 175, 55, 0.25);
+  --glass-border-light: rgba(255, 255, 255, 0.12);
+
+  --gold-primary: #d4af37;
+  --gold-light: #f3e5ab;
+  --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+  --gold-glow: rgba(212, 175, 55, 0.35);
+
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: linear-gradient(rgba(4, 7, 12, 0.5), rgba(4, 7, 12, 0.5)),
+    url('../assets/bg1.jpg') center/cover no-repeat fixed;
+  color: var(--text-main);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 80px;
+  padding: 15px 40px;
+  background: rgba(8, 12, 20, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.brand-logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px var(--gold-glow));
+}
+
+.brand-logo-icon {
+  font-size: 36px;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.brand-title {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-subtitle {
+  font-size: 12px;
+  color: var(--gold-light);
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+.header-right {
+  text-align: right;
+}
+
+.clock {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 12px var(--gold-glow);
+  font-variant-numeric: tabular-nums;
+}
+
+.date-masehi {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.date-hijri {
+  font-family: 'Amiri', serif;
+  font-size: 18px;
+  color: var(--gold-primary);
+}
+
+.quran-banner {
+  background: rgba(15, 23, 38, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border-light);
+  padding: 12px 50px;
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.quran-container {
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.quran-container.fade-out {
+  opacity: 0;
+}
+
+.quran-arabic {
+  font-family: 'Amiri', serif;
+  font-size: 45px;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+  direction: rtl;
+  line-height: 1.5;
+}
+
+.quran-translation {
+  font-size: 13px;
+  font-style: italic;
+  margin-top: 4px;
+  color: var(--gold-light);
+  letter-spacing: 0.2px;
+}
+
+.main-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 20px;
+  padding: 16px 40px 8px 40px;
+  overflow: hidden;
+}
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 18px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.03);
+}
+
+.card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: 1px solid var(--glass-border-light);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-title i {
+  color: var(--gold-primary);
+  -webkit-text-fill-color: initial;
+}
+
+.prayer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.prayer-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+.prayer-item.active {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-left: 4px solid var(--gold-primary);
+  border-color: var(--glass-border);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.prayer-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.prayer-time {
+  font-family: 'Cinzel', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+
+.centerpiece {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background: rgba(18, 25, 38, 0.6);
+  border: 1.5px solid var(--gold-primary);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.2), inset 0 0 25px rgba(212, 175, 55, 0.08);
+}
+
+.centerpiece-subtitle {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.centerpiece-prayer-name {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 4px 0;
+}
+
+.countdown-display {
+  font-family: 'Cinzel', serif;
+  font-size: 50px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 25px var(--gold-glow);
+  margin: 10px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.centerpiece-time-target {
+  font-size: 13px;
+  color: var(--gold-light);
+}
+
+.agenda-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  height: 100%;
+}
+
+.agenda-card-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.agenda-badge {
+  background: var(--gold-gradient);
+  color: #000;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.agenda-badge-secondary {
+  background: rgba(13, 148, 136, 0.85);
+  color: #fff;
+}
+
+.agenda-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.agenda-speaker {
+  font-size: 12px;
+  color: var(--gold-light);
+}
+
+.agenda-time {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.ramadhan-container {
+  padding: 0 40px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: center;
+}
+
+.ramadhan-card {
+  background: rgba(15, 20, 30, 0.5);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  padding: 6px 30px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.ramadhan-label {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--gold-light);
+}
+
+.ramadhan-value {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 10px var(--gold-glow);
+}
+
+.trademark-container {
+  padding: 0 25px;
+  margin-bottom: 2px;
+}
+
+.trademark-arab {
+  font-family: 'Amiri', serif;
+  font-size: 14px;
+  color: var(--gold-primary);
+  opacity: 0.6;
+  letter-spacing: 1px;
+}
+
+.footer-ticker {
+  height: 44px;
+  background: rgba(5, 8, 14, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--glass-border-light);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.ticker-badge {
+  background: var(--gold-gradient);
+  color: #000;
+  font-family: 'Cinzel', serif;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-right: 18px;
+  white-space: nowrap;
+  box-shadow: 0 0 10px var(--gold-glow);
+  z-index: 2;
+}
+
+.ticker-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: marquee 25s linear infinite;
+  font-size: 14px;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}

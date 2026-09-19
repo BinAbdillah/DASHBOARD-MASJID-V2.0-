@@ -1,5 +1,5 @@
-import { auth } from './firebase-config.js';
 import { signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import { auth } from './firebase-config.js';
 
 document.getElementById('btn-login').addEventListener('click', () => {
   const email = document.getElementById('email').value;
@@ -9,7 +9,7 @@ document.getElementById('btn-login').addEventListener('click', () => {
     .then(() => {
       window.location.href = 'admin.html';
     })
-    .catch((err) => {
-      alert('Login gagal: ' + err.message);
+    .catch((error) => {
+      alert(`Login gagal: ${error.message}`);
     });
 });
