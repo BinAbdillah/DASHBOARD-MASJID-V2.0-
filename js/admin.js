@@ -1,6 +1,6 @@
 import { firebaseService } from './firebase-service.js';
-import { $, setValue } from './utils.js';
-import { auth, db, ref, set, push, onValue, remove } from './firebase-config.js';
+import { $, setValue, isNonEmpty, escapeHtml, showToast } from './utils.js';
+import { auth, db, ref, onValue } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
 onAuthStateChanged(auth, (user) => {
@@ -82,17 +82,26 @@ onValue(ref(db, 'config'), (snapshot) => {
 });
 
 $('#btn-save-masjid').onclick = async () => {
+  const namaMasjid = $('#inp-nama').value.trim();
+  const alamatMasjid = $('#inp-alamat').value.trim();
+  const cityId = $('#inp-city-id').value.trim();
+
+  if (!isNonEmpty(namaMasjid) || !isNonEmpty(alamatMasjid)) {
+    showToast('Nama masjid dan alamat wajib diisi.', 'error');
+    return;
+  }
+
   try {
     await firebaseService.saveProfile({
-      namaMasjid: $('#inp-nama').value,
-      alamatMasjid: $('#inp-alamat').value,
-      cityId: $('#inp-city-id').value || '1301',
+      namaMasjid,
+      alamatMasjid,
+      cityId: cityId || '1301',
       logoUrl: logoBase64
     });
-    alert('Profil & Logo Masjid Berhasil Disimpan!');
+    showToast('Profil & Logo Masjid Berhasil Disimpan!', 'success');
   } catch (error) {
     console.error('Gagal menyimpan profil:', error);
-    alert('Gagal menyimpan profil masjid.');
+    showToast('Gagal menyimpan profil masjid.', 'error');
   }
 };
 
@@ -102,36 +111,41 @@ $('#btn-add-agenda').onclick = async () => {
   const penceramah = $('#inp-penceramah').value.trim();
   const waktu = $('#inp-waktu').value.trim();
 
-  if (!judul || !waktu) {
-    alert('Mohon isi minimal Judul dan Waktu agenda!');
+  if (!isNonEmpty(judul) || !isNonEmpty(waktu)) {
+    showToast('Judul dan waktu agenda wajib diisi.', 'error');
     return;
   }
 
   try {
     await firebaseService.addAgenda({ kategori, judul, penceramah, waktu });
-    alert('Agenda Utama Berhasil Ditambahkan!');
+    showToast('Agenda Utama Berhasil Ditambahkan!', 'success');
     setValue('#inp-kategori', '');
     setValue('#inp-judul', '');
     setValue('#inp-penceramah', '');
     setValue('#inp-waktu', '');
   } catch (error) {
     console.error('Gagal menambahkan agenda:', error);
-    alert('Gagal menambahkan agenda.');
+    showToast('Gagal menambahkan agenda.', 'error');
   }
 };
 
 $('#btn-save-kegiatan').onclick = async () => {
+  const badge = $('#inp-keg-badge').value.trim();
+  const judul = $('#inp-keg-judul').value.trim();
+  const speaker = $('#inp-keg-speaker').value.trim();
+  const waktu = $('#inp-keg-waktu').value.trim();
+
+  if (!isNonEmpty(judul) || !isNonEmpty(waktu)) {
+    showToast('Judul dan waktu kegiatan wajib diisi.', 'error');
+    return;
+  }
+
   try {
-    await firebaseService.saveActivity({
-      badge: $('#inp-keg-badge').value.trim(),
-      judul: $('#inp-keg-judul').value.trim(),
-      speaker: $('#inp-keg-speaker').value.trim(),
-      waktu: $('#inp-keg-waktu').value.trim()
-    });
-    alert('Kegiatan Lain (Statis) Berhasil Diperbarui!');
+    await firebaseService.saveActivity({ badge, judul, speaker, waktu });
+    showToast('Kegiatan Lain (Statis) Berhasil Diperbarui!', 'success');
   } catch (error) {
     console.error('Gagal menyimpan kegiatan:', error);
-    alert('Gagal menyimpan kegiatan.');
+    showToast('Gagal menyimpan kegiatan.', 'error');
   }
 };
 
@@ -153,11 +167,11 @@ onValue(ref(db, 'agendas'), (snapshot) => {
     itemEl.className = 'agenda-item';
     itemEl.innerHTML = `
       <div class="agenda-info">
-        <span class="agenda-badge">${item.kategori}</span>
-        <div class="agenda-title">${item.judul}</div>
-        <div class="agenda-sub"><i class="fa-solid fa-user-tie"></i> ${item.penceramah} | <i class="fa-solid fa-clock"></i> ${item.waktu}</div>
+        <span class="agenda-badge">${escapeHtml(item.kategori || 'AGENDA')}</span>
+        <div class="agenda-title">${escapeHtml(item.judul || '-')}</div>
+        <div class="agenda-sub"><i class="fa-solid fa-user-tie"></i> ${escapeHtml(item.penceramah || '-')} | <i class="fa-solid fa-clock"></i> ${escapeHtml(item.waktu || '-')}</div>
       </div>
-      <button class="btn-delete" data-id="${key}"><i class="fa-solid fa-trash"></i> Hapus</button>
+      <button class="btn-delete" data-id="${escapeHtml(key)}"><i class="fa-solid fa-trash"></i> Hapus</button>
     `;
     listContainer.appendChild(itemEl);
   });
@@ -169,21 +183,27 @@ onValue(ref(db, 'agendas'), (snapshot) => {
 
       try {
         await firebaseService.deleteAgenda(id);
-        alert('Agenda berhasil dihapus!');
+        showToast('Agenda berhasil dihapus!', 'success');
       } catch (error) {
         console.error('Gagal menghapus:', error);
-        alert('Gagal menghapus agenda.');
+        showToast('Gagal menghapus agenda.', 'error');
       }
     };
   });
 });
 
 $('#btn-save-running').onclick = async () => {
+  const value = $('#inp-running-text').value.trim();
+  if (!isNonEmpty(value)) {
+    showToast('Running text tidak boleh kosong.', 'error');
+    return;
+  }
+
   try {
-    await firebaseService.saveRunningText($('#inp-running-text').value);
-    alert('Running Text Berhasil Diperbarui!');
+    await firebaseService.saveRunningText(value);
+    showToast('Running Text Berhasil Diperbarui!', 'success');
   } catch (error) {
     console.error('Gagal menyimpan running text:', error);
-    alert('Gagal menyimpan running text.');
+    showToast('Gagal menyimpan running text.', 'error');
   }
 };
