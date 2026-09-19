@@ -1,4 +1,5 @@
 import { db, ref, onValue } from './firebase-config.js';
+import { $, $$, setText } from './utils.js';
 
 let prayerSchedule = {};
 let cityId = '1301';
@@ -20,8 +21,13 @@ const fallbackAyahs = [
   }
 ];
 
+function setTimeText(id, value) {
+  const element = document.getElementById(id);
+  if (element) element.textContent = value;
+}
+
 async function fetchRandomQuranVerse() {
-  const quranBox = document.getElementById('quran-box');
+  const quranBox = $('#quran-box');
   quranBox.classList.add('fade-out');
 
   setTimeout(async () => {
@@ -32,14 +38,14 @@ async function fetchRandomQuranVerse() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 3000);
 
-      const res = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyah}/editions/quran-uthmani,id.indonesian`, { signal: controller.signal });
+      const response = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyah}/editions/quran-uthmani,id.indonesian`, { signal: controller.signal });
       clearTimeout(timeoutId);
 
-      if (res.ok) {
-        const data = await res.json();
+      if (response.ok) {
+        const data = await response.json();
         if (data.status === 'OK' && data.data) {
-          document.getElementById('quran-arabic').innerText = data.data[0].text;
-          document.getElementById('quran-translation').innerText = `"${data.data[1].text}" — QS. ${data.data[0].surah.englishName}: ${data.data[0].numberInSurah}`;
+          setText('#quran-arabic', data.data[0].text);
+          setText('#quran-translation', `"${data.data[1].text}" — QS. ${data.data[0].surah.englishName}: ${data.data[0].numberInSurah}`);
           isLoaded = true;
         }
       }
@@ -49,8 +55,8 @@ async function fetchRandomQuranVerse() {
 
     if (!isLoaded) {
       const item = fallbackAyahs[fallbackIndex];
-      document.getElementById('quran-arabic').innerText = item.ar;
-      document.getElementById('quran-translation').innerText = item.tr;
+      setText('#quran-arabic', item.ar);
+      setText('#quran-translation', item.tr);
       fallbackIndex = (fallbackIndex + 1) % fallbackAyahs.length;
     }
 
@@ -61,7 +67,7 @@ async function fetchRandomQuranVerse() {
 function updateDates() {
   const now = new Date();
   const optionsMasehi = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  document.getElementById('date-masehi').innerText = now.toLocaleDateString('id-ID', optionsMasehi);
+  setText('#date-masehi', now.toLocaleDateString('id-ID', optionsMasehi));
 
   const day = String(now.getDate()).padStart(2, '0');
   const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -72,11 +78,11 @@ function updateDates() {
     .then((data) => {
       if (data && data.data) {
         const hijriDate = data.data.hijri;
-        document.getElementById('date-hijri').innerText = `${hijriDate.day} ${hijriDate.month.en} ${hijriDate.year} H`;
+        setText('#date-hijri', `${hijriDate.day} ${hijriDate.month.en} ${hijriDate.year} H`);
       }
     })
     .catch(() => {
-      document.getElementById('date-hijri').innerText = '-- Safar 1448 H';
+      setText('#date-hijri', '-- Safar 1448 H');
     });
 }
 
@@ -100,11 +106,11 @@ async function fetchKemenagPrayerTimes() {
         Isya: j.isya
       };
 
-      document.getElementById('time-subuh').innerText = `${j.subuh} WIB`;
-      document.getElementById('time-dzuhur').innerText = `${j.dzuhur} WIB`;
-      document.getElementById('time-ashar').innerText = `${j.ashar} WIB`;
-      document.getElementById('time-maghrib').innerText = `${j.maghrib} WIB`;
-      document.getElementById('time-isya').innerText = `${j.isya} WIB`;
+      setTimeText('time-subuh', `${j.subuh} WIB`);
+      setTimeText('time-dzuhur', `${j.dzuhur} WIB`);
+      setTimeText('time-ashar', `${j.ashar} WIB`);
+      setTimeText('time-maghrib', `${j.maghrib} WIB`);
+      setTimeText('time-isya', `${j.isya} WIB`);
     }
   } catch (error) {
     console.error('Gagal mengambil jadwal Kemenag:', error);
@@ -116,7 +122,7 @@ function updateClockAndCountdown() {
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
   const seconds = String(now.getSeconds()).padStart(2, '0');
-  document.getElementById('clock').innerText = `${hours}.${minutes}.${seconds} WIB`;
+  setText('#clock', `${hours}.${minutes}.${seconds} WIB`);
 
   if (!prayerSchedule.Subuh) return;
 
@@ -128,7 +134,7 @@ function updateClockAndCountdown() {
     { name: 'ISYA', time: prayerSchedule.Isya, id: 'p-isya' }
   ];
 
-  document.querySelectorAll('.prayer-item').forEach((element) => element.classList.remove('active'));
+  $$('.prayer-item').forEach((element) => element.classList.remove('active'));
 
   let nextPrayer = null;
   for (const prayer of prayerTimes) {
@@ -151,15 +157,15 @@ function updateClockAndCountdown() {
   }
 
   document.getElementById(nextPrayer.id).classList.add('active');
-  document.getElementById('next-prayer-name').innerText = nextPrayer.name;
-  document.getElementById('next-prayer-time').innerText = `Pukul ${nextPrayer.time} WIB`;
+  setText('#next-prayer-name', nextPrayer.name);
+  setText('#next-prayer-time', `Pukul ${nextPrayer.time} WIB`);
 
   const diffMs = nextPrayer.date - now;
   const diffHours = String(Math.floor((diffMs / (1000 * 60 * 60)) % 24)).padStart(2, '0');
   const diffMinutes = String(Math.floor((diffMs / (1000 * 60)) % 60)).padStart(2, '0');
   const diffSeconds = String(Math.floor((diffMs / 1000) % 60)).padStart(2, '0');
 
-  document.getElementById('countdown').innerText = `${diffHours} : ${diffMinutes} : ${diffSeconds}`;
+  setText('#countdown', `${diffHours} : ${diffMinutes} : ${diffSeconds}`);
 }
 
 function updateRamadhanCountdown() {
@@ -170,9 +176,9 @@ function updateRamadhanCountdown() {
   if (diffMs > 0) {
     const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
-    document.getElementById('ramadhan-timer').innerText = `${days} Hari : ${hours} Jam`;
+    setText('#ramadhan-timer', `${days} Hari : ${hours} Jam`);
   } else {
-    document.getElementById('ramadhan-timer').innerText = 'Selamat Menunaikan Ibadah Puasa';
+    setText('#ramadhan-timer', 'Selamat Menunaikan Ibadah Puasa');
   }
 }
 
@@ -180,27 +186,27 @@ function bindRealtimeConfig() {
   onValue(ref(db, 'config'), (snapshot) => {
     const data = snapshot.val();
     if (data) {
-      if (data.nama_masjid) document.getElementById('disp-nama-masjid').innerText = data.nama_masjid;
-      if (data.alamat_masjid) document.getElementById('disp-alamat-masjid').innerText = data.alamat_masjid;
-      if (data.running_text) document.getElementById('disp-running-text').innerText = data.running_text;
+      if (data.nama_masjid) setText('#disp-nama-masjid', data.nama_masjid);
+      if (data.alamat_masjid) setText('#disp-alamat-masjid', data.alamat_masjid);
+      if (data.running_text) setText('#disp-running-text', data.running_text);
       if (data.city_id) {
         cityId = data.city_id;
         fetchKemenagPrayerTimes();
       }
       if (data.logo_url) {
-        document.getElementById('logo-container').innerHTML = `<img src="${data.logo_url}" class="brand-logo-img" alt="Logo Masjid">`;
+        $('#logo-container').innerHTML = `<img src="${data.logo_url}" class="brand-logo-img" alt="Logo Masjid">`;
       }
     }
   });
 
   onValue(ref(db, 'config/kegiatan_lain'), (snapshot) => {
     const kegiatan = snapshot.val();
-    if (kegiatan) {
-      if (kegiatan.badge) document.getElementById('keg-badge').innerText = kegiatan.badge;
-      if (kegiatan.judul) document.getElementById('agenda-keg-judul').innerText = kegiatan.judul;
-      if (kegiatan.speaker) document.getElementById('agenda-keg-speaker').innerText = kegiatan.speaker;
-      if (kegiatan.waktu) document.getElementById('agenda-keg-waktu').innerText = kegiatan.waktu;
-    }
+    if (!kegiatan) return;
+
+    if (kegiatan.badge) setText('#keg-badge', kegiatan.badge);
+    if (kegiatan.judul) setText('#agenda-keg-judul', kegiatan.judul);
+    if (kegiatan.speaker) setText('#agenda-keg-speaker', kegiatan.speaker);
+    if (kegiatan.waktu) setText('#agenda-keg-waktu', kegiatan.waktu);
   });
 }
 
@@ -215,10 +221,10 @@ function bindAgendaRotation() {
 
       const displayAgenda = (index) => {
         const item = agendaList[index];
-        document.getElementById('agenda-badge').innerText = item.kategori || 'AGENDA';
-        document.getElementById('agenda-judul').innerText = item.judul || '-';
-        document.getElementById('agenda-penceramah').innerText = item.penceramah || '-';
-        document.getElementById('agenda-waktu').innerText = item.waktu || '-';
+        setText('#agenda-badge', item.kategori || 'AGENDA');
+        setText('#agenda-judul', item.judul || '-');
+        setText('#agenda-penceramah', item.penceramah || '-');
+        setText('#agenda-waktu', item.waktu || '-');
       };
 
       displayAgenda(0);
@@ -230,10 +236,10 @@ function bindAgendaRotation() {
         }, 7000);
       }
     } else {
-      document.getElementById('agenda-badge').innerText = 'AGENDA';
-      document.getElementById('agenda-judul').innerText = 'Belum Ada Agenda';
-      document.getElementById('agenda-penceramah').innerText = '-';
-      document.getElementById('agenda-waktu').innerText = '-';
+      setText('#agenda-badge', 'AGENDA');
+      setText('#agenda-judul', 'Belum Ada Agenda');
+      setText('#agenda-penceramah', '-');
+      setText('#agenda-waktu', '-');
     }
   });
 }

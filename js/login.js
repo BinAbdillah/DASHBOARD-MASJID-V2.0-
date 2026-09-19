@@ -1,11 +1,12 @@
 import { signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 import { auth } from './firebase-config.js';
+import { $ } from './utils.js';
 
-document.getElementById('btn-login').addEventListener('click', () => {
-  const email = document.getElementById('email').value;
-  const pass = document.getElementById('password').value;
+$('#btn-login').addEventListener('click', () => {
+  const email = $('#email').value;
+  const password = $('#password').value;
 
-  signInWithEmailAndPassword(auth, email, pass)
+  signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       window.location.href = 'admin.html';
     })
