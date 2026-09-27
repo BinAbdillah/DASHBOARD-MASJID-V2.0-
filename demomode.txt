@@ -1,0 +1,22 @@
+try {
+        const res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/${cityId}/${y}/${m}/${d}`);
+        const data = await res.json();
+        if (data.status && data.data.jadwal) {
+          const j = data.data.jadwal;
+          
+          // --- TIMPA JADWAL DI SINI UNTUK DEMO ---
+          prayerSchedule = { 
+            Subuh: '04:30', 
+            Dzuhur: '12:00', 
+            Ashar: '15:15', 
+            Maghrib: '20:55', // <-- Set jam & menit mendekati waktu laptop sekarang
+            Isya: '23:59' 
+          };
+
+          if (document.getElementById('time-subuh')) document.getElementById('time-subuh').innerText = prayerSchedule.Subuh + ' WIB';
+          if (document.getElementById('time-dzuhur')) document.getElementById('time-dzuhur').innerText = prayerSchedule.Dzuhur + ' WIB';
+          if (document.getElementById('time-ashar')) document.getElementById('time-ashar').innerText = prayerSchedule.Ashar + ' WIB';
+          if (document.getElementById('time-maghrib')) document.getElementById('time-maghrib').innerText = prayerSchedule.Maghrib + ' WIB';
+          if (document.getElementById('time-isya')) document.getElementById('time-isya').innerText = prayerSchedule.Isya + ' WIB';
+        }
+      } catch (err) {

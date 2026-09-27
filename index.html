@@ -648,7 +648,7 @@
       DURASI_SHALAT_MENIT: 10
     };
 
-    let isPopupActive = false;
+    window.isPopupActive = false;
     let iqomahInterval = null;
     let adzanTimeout = null;
     let shalatTimeout = null;
@@ -671,7 +671,7 @@
         overlay.style.background = 'rgba(5, 12, 8, 0.96)';
       }
 
-      isPopupActive = false;
+      window.isPopupActive = false;
     };
 
     window.triggerPrayerSequence = function(
@@ -681,7 +681,7 @@
       durasiShalatSec = null
     ) {
       window.stopPopup();
-      isPopupActive = true;
+      window.isPopupActive = true;
 
       const overlay = document.getElementById('popup-overlay');
       const adzanBox = document.getElementById('popup-adzan-box');
@@ -939,9 +939,9 @@
         const pDate = new Date();
         pDate.setHours(pHours, pMins, 0, 0);
 
-        if (now < pDate) {
-          nextP = { ...p, date: pDate };
-          break;
+        if (now.getTime() < pDate.getTime() + 1000) {
+        nextP = { ...p, date: pDate };
+        break;
         }
       }
 
